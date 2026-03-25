@@ -33,3 +33,25 @@ def aprovar_restaurante(request, id):
 def lista_restaurantes(request):
     restaurantes = Restaurante.objects.filter(aprovado=True)
     return render(request, 'lista.html', {'restaurantes': restaurantes})
+
+
+def home(request):
+    pontos = PontoTuristico.objects.filter(aprovado=True)
+    return render(request, 'home.html', {'pontos': pontos})
+
+
+def mapa(request):
+    restaurantes = Restaurante.objects.filter(aprovado=True)
+    return render(request, 'mapa.html', {'restaurantes': restaurantes})
+
+
+@login_required
+def painel_comerciante(request):
+    meus = Restaurante.objects.filter(criado_por=request.user)
+    return render(request, 'painel_comerciante.html', {'meus': meus})
+
+
+@user_passes_test(is_secretaria)
+def painel_secretaria(request):
+    pendentes = Restaurante.objects.filter(aprovado=False)
+    return render(request, 'painel_secretaria.html', {'pendentes': pendentes})
