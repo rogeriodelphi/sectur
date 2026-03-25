@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Dashboard - Secretaria de Turismo</h2>
+
+    <!-- KPIs -->
+    <div class="row text-center mb-4">
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h4>{{ total }}</h4>
+                <small>Total Cadastros</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h4>{{ aprovados }}</h4>
+                <small>Aprovados</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3">
+                <h4>{{ pendentes }}</h4>
+                <small>Pendentes</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="graficoCategorias"></canvas>
+        </div>
+
+        <div class="col-md-6">
+            <canvas id="graficoStatus"></canvas>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // GRÁFICO POR CATEGORIA
+    new Chart(document.getElementById('graficoCategorias'), {
+        type: 'bar',
+        data: {
+            labels: ['Pontos', 'Hotéis', 'Restaurantes', 'Eventos'],
+            datasets: [{
+                label: 'Cadastros',
+                data: [{{ pontos }}, {{ hoteis }}, {{ restaurantes }}, {{ eventos }}]
+            }]
+        }
+    });
+
+    // GRÁFICO APROVADOS VS PENDENTES
+    new Chart(document.getElementById('graficoStatus'), {
+        type: 'pie',
+        data: {
+            labels: ['Aprovados', 'Pendentes'],
+            datasets: [{
+                data: [{{ aprovados }}, {{ pendentes }}]
+            }]
+        }
+    });
+</script>
+
+{% endblock %}

@@ -11,4 +11,6 @@ urlpatterns = [
     path('painel/secretaria/', views.painel_secretaria, name='painel_secretaria'),
 
     path('aprovar/<int:id>/', views.aprovar_restaurante, name='aprovar_restaurante'),
+
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]
