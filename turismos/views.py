@@ -29,3 +29,7 @@ def aprovar_restaurante(request, id):
     restaurante.aprovado = True
     restaurante.save()
     return redirect('painel_secretaria')
+
+def lista_restaurantes(request):
+    restaurantes = Restaurante.objects.filter(aprovado=True)
+    return render(request, 'lista.html', {'restaurantes': restaurantes})

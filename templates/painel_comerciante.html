@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Meus Cadastros</h2>
+
+    <a href="{% url 'cadastrar_restaurante' %}" class="btn btn-success mb-3">
+        Novo Cadastro
+    </a>
+
+    {% for item in meus %}
+        <div class="card p-3 mb-2">
+            <strong>{{ item.nome }}</strong><br>
+
+            {% if item.aprovado %}
+                <span class="text-success">Aprovado</span>
+            {% else %}
+                <span class="text-warning">Pendente</span>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

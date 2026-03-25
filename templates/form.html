@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Cadastrar</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div id="map"></div>
+
+        <input type="hidden" name="latitude" id="id_latitude">
+        <input type="hidden" name="longitude" id="id_longitude">
+
+        <button class="btn btn-primary mt-3">Salvar</button>
+    </form>
+
+</div>
+
+<script>
+    var map = L.map('map').setView([-13.366, -39.073], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    var marker;
+
+    map.on('click', function(e){
+        if(marker){
+            map.removeLayer(marker);
+        }
+
+        marker = L.marker(e.latlng).addTo(map);
+
+        document.getElementById('id_latitude').value = e.latlng.lat;
+        document.getElementById('id_longitude').value = e.latlng.lng;
+    });
+</script>
+
+{% endblock %}

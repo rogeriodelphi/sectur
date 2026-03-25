@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="hero text-center">
+    <h1>Venha conhecer a capital do baixo sul!</h1>
+</div>
+
+<div class="container mt-4">
+
+    <!-- MENU -->
+    <div class="row text-center mb-4">
+        <div class="col">Pontos turísticos</div>
+        <div class="col">Hotéis</div>
+        <div class="col">Restaurantes</div>
+        <div class="col">Eventos</div>
+    </div>
+
+    <!-- DESTAQUES -->
+    <div class="row">
+        {% for item in pontos %}
+        <div class="col-md-6 mb-4">
+            <div class="card card-custom">
+                <img src="{{ item.imagem.url }}" class="card-img-top">
+                <div class="card-body">
+                    <h5>{{ item.nome }}</h5>
+                    <p>{{ item.descricao|truncatewords:20 }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
